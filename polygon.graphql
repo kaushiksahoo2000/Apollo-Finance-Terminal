@@ -1,0 +1,76 @@
+extend schema
+  @link(url: "https://specs.apollo.dev/federation/v2.10", import: ["@key", "@requires"])
+  @link(
+    url: "https://specs.apollo.dev/connect/v0.1"
+    import: ["@source", "@connect"]
+  )
+  @source(
+    name: "jsonPlaceholder"
+    http: {
+      baseURL: "https://jsonplaceholder.typicode.com/"
+    }
+  )
+  @source(
+    name: "polygonV2"
+    http: {
+      baseURL: "https://api.polygon.io/v2",
+      headers: [
+        {
+          name: "Authorization",
+          value: "Bearer {$config.apiKey}",
+        }
+      ]
+    }
+  )
+
+type Stock @key(fields:"ticker"){
+  ticker: String!
+}
+
+type AggregateBar {
+  openPrice: Float
+  closePrice: Float
+  highestPrice: Float
+  lowestPrice: Float
+  timestamp: Float
+}
+
+type AggregateBars {
+  ticker: String!
+  results: [AggregateBar]
+}
+
+type Post {
+  id: ID!
+  body: String
+  title: String
+}
+
+# TODO: make timespan enum
+type Query {
+  stockAggregateBars (ticker: String!, from: String!, to: String!, timespan: String!): AggregateBars
+    @connect(
+        source: "polygonV2"
+        http: { GET: "/aggs/ticker/{$args.ticker}/range/1/{$args.timespan}/{$args.from}/{$args.to}"}
+        selection: """
+          ticker
+          results {
+              openPrice: o
+              closePrice: c
+              highestPrice: h
+              lowestPrice: l
+              timestamp: t
+          }
+        """
+      )
+  posts: [Post]
+    @connect(
+      source: "jsonPlaceholder"
+      http: { GET: "/posts" }
+      selection: """
+        id
+        title
+        body
+      """
+    )
+}
