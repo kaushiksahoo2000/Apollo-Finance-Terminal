@@ -1,0 +1,6 @@
+federation_version: =2.10.0-preview.0
+subgraphs:
+  polygon:
+    routing_url: http://polygon
+    schema:
+      file: polygon.graphql

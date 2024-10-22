@@ -1,0 +1,17 @@
+supergraph:
+  listen: 127.0.0.1:4000
+
+headers:
+  all:
+    request:
+      - propagate:
+          matching: .*
+preview_connectors:
+  subgraphs:
+    polygon:
+      $config:
+        apiKey: ${env.POLYGON_API_KEY}
+telemetry:
+  instrumentation:
+    spans: 
+      mode: spec_compliant

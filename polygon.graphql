@@ -1,0 +1,94 @@
+extend schema
+  @link(url: "https://specs.apollo.dev/federation/v2.10", import: ["@key", "@requires"])
+  @link(
+    url: "https://specs.apollo.dev/connect/v0.1"
+    import: ["@source", "@connect"]
+  )
+  @source(
+    name: "polygonV2"
+    http: {
+      baseURL: "https://api.polygon.io/v2",
+      headers: [
+        {
+          name: "Authorization",
+          value: "Bearer {$config.apiKey}",
+        }
+      ]
+    }
+  )
+  @source(
+    name: "polygonV3"
+    http: {
+      baseURL: "https://api.polygon.io/v3",
+      headers: [
+        {
+          name: "Authorization",
+          value: "Bearer {$config.apiKey}",
+        }
+      ]
+    }
+  )
+
+type TickerDetails @key(fields:"ticker"){
+  ticker: String!
+  name: String!
+  marketCap: Float
+  description: String
+  homepageUrl: String
+  totalEmployees: Float
+  listDate: String
+  logoUrl: String
+  iconUrl: String
+  shareClassSharesOutstanding: Float
+}
+
+type AggregateBar {
+  openPrice: Float
+  closePrice: Float
+  highestPrice: Float
+  lowestPrice: Float
+  timestamp: Float
+}
+
+type AggregateBars {
+  ticker: String!
+  results: [AggregateBar]
+}
+
+# TODO: make timespan enum
+type Query {
+  tickerDetails (ticker: String!): TickerDetails
+    @connect(
+        source: "polygonV3"
+        http: { GET: "/reference/tickers/{$args.ticker}"}
+        selection: """
+          $.results {
+            ticker: ticker
+            name: name
+            marketCap: market_cap
+            description: description
+            homepageUrl: homepage_url
+            totalEmployees: total_employees
+            listDate: list_date
+            logoUrl: branding.logo_url
+            iconUrl: branding.icon_url
+            shareClassSharesOutstanding: share_class_shares_outstanding
+          }
+        """
+      )
+  aggregateBars (ticker: String!, from: String!, to: String!, timespan: String!): AggregateBars
+    @connect(
+        source: "polygonV2"
+        http: { GET: "/aggs/ticker/{$args.ticker}/range/1/{$args.timespan}/{$args.from}/{$args.to}"}
+        selection: """
+          ticker
+          results {
+              openPrice: o
+              closePrice: c
+              highestPrice: h
+              lowestPrice: l
+              timestamp: t
+          }
+        """
+      )
+}
