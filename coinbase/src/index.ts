@@ -1,5 +1,7 @@
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
+import { buildSubgraphSchema } from "@apollo/subgraph"; //preserve-line
+import gql from "graphql-tag";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import express from "express";
 import { createServer } from "http";
@@ -14,9 +16,15 @@ import { WebSocket as WSWebSocket } from "ws";
 const PORT = 8000;
 const pubsub = new PubSub();
 
-// Simple schema definition
-// reference structure from https://docs.cdp.coinbase.com/advanced-trade/docs/ws-channels#ticker-channel
-const typeDefs = `#graphql
+// Simple subgraph schema definition (https://www.apollographql.com/docs/apollo-server/using-federation/apollo-subgraph-setup)
+// w/ reference structure from https://docs.cdp.coinbase.com/advanced-trade/docs/ws-channels#ticker-channel
+const typeDefs = gql`
+    extend schema
+      @link(
+        url: "https://specs.apollo.dev/federation/v2.4" 
+        import: ["@key", "@requires"]
+      )
+
     type Ticker {
         product_id: String
         price: Float
@@ -56,7 +64,7 @@ const resolvers = {
 
 // Create schema, which will be used separately by ApolloServer and
 // the WebSocket server
-const schema = makeExecutableSchema({ typeDefs, resolvers });
+const schema = buildSubgraphSchema({ typeDefs, resolvers });
 
 // Create an Express app and HTTP server; we will attach the WebSocket
 // server and the ApolloServer to this HTTP server.

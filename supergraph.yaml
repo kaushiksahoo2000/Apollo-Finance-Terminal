@@ -1,6 +1,12 @@
 federation_version: =2.10.0-preview.0
 subgraphs:
+  # Local .graphql file since REST connector
   polygon:
     routing_url: http://polygon
     schema:
       file: polygon.graphql
+  # Subgraph introspection since deployed Apollo Server subgraph
+  coinbase:
+    routing_url:
+    schema:
+      subgraph_url: http://127.0.0.1:8000/graphql

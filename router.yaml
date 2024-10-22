@@ -11,6 +11,13 @@ preview_connectors:
     polygon:
       $config:
         apiKey: ${env.POLYGON_API_KEY}
+subscription:
+  enabled: true
+  mode:
+    passthrough:
+      all: # The router uses these subscription settings UNLESS overridden per-subgraph
+        path: /graphql # The absolute URL path to use for subgraph subscription endpoints (Default: /ws)
+        protocol: graphql_ws # The WebSocket-based subprotocol to use for subscription communication (Default: graphql_ws)
 telemetry:
   instrumentation:
     spans: 
