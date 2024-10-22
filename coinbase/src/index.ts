@@ -21,7 +21,7 @@ const pubsub = new PubSub();
 const typeDefs = gql`
     extend schema
       @link(
-        url: "https://specs.apollo.dev/federation/v2.0" 
+        url: "https://specs.apollo.dev/federation/v2.4" 
         import: ["@key", "@requires"]
       )
 
