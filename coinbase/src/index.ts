@@ -64,7 +64,6 @@ const resolvers = {
 
 // Create schema, which will be used separately by ApolloServer and
 // the WebSocket server
-// const schema = makeExecutableSchema({ typeDefs, resolvers });
 const schema = buildSubgraphSchema({ typeDefs, resolvers });
 
 // Create an Express app and HTTP server; we will attach the WebSocket
