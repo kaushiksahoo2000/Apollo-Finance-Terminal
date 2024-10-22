@@ -1,3 +1,8 @@
+# Colors for prettier output
+CYAN = \033[0;36m
+GREEN = \033[0;32m
+RESET = \033[0m
+
 .PHONY: print-required-env-vars
 print-required-env-vars: ## Display required environment variables and their current values
 	@echo "APOLLO_KEY: $${APOLLO_KEY}"
@@ -5,10 +10,16 @@ print-required-env-vars: ## Display required environment variables and their cur
 	@echo "APOLLO_ROVER_DEV_ROUTER_VERSION: $${APOLLO_ROVER_DEV_ROUTER_VERSION}"
 	@echo "APOLLO_ROVER_DEV_COMPOSITION_VERSION: $${APOLLO_ROVER_DEV_COMPOSITION_VERSION}"
 
+###############################
+##### INSTALLATION
+###############################
 .PHONY: install-coinbase-subscription-server-deps
 install-coinbase-subscription-server-deps: ## Install local coinbase subscription server/subgraph dependencies
 	cd coinbase && npm install
 
+###############################
+##### LOCAL DEV - w/o Docker
+###############################
 .PHONY: start-coinbase-subscription-server
 start-coinbase-subscription-server: ## Start local coinbase subscription server/subgraph
 	cd coinbase && npm start
@@ -17,6 +28,33 @@ start-coinbase-subscription-server: ## Start local coinbase subscription server/
 rover-dev: print-required-env-vars ## Run rover dev to get local router running w/ supergraph
 	rover dev --supergraph-config supergraph.yaml --router-config router.yaml
 
+###############################
+##### LOCAL DEV - w/ Docker
+###############################
+.PHONY: docker-build-coinbase-subscription-server
+docker-build-coinbase-subscription-server: ## Build the Docker image for coinbase subscription server/subgraph
+	@echo "$(CYAN)Building Docker image...$(RESET)"
+	cd coinbase && docker build -t coinbase-ws-server .
+	@echo "$(GREEN)Build complete!$(RESET)"
+
+.PHONY: docker-run-coinbase-subscription-server
+docker-run-coinbase-subscription-server: ## Run coinbase subscription server/subgraph Docker container 
+	@echo "$(CYAN)Starting container...$(RESET)"
+	cd coinbase && docker run -p 8000:8000 coinbase-ws-server
+	@echo "$(GREEN)Container started!$(RESET)"
+
+.PHONY: docker-build-and-run-coinbase-subscription-server
+docker-build-and-run-coinbase-subscription-server: docker-build-coinbase-subscription-server docker-run-coinbase-subscription-server  ## Build and run coinbase subscription server/subgraph w/ docker
+
+.PHONY: docker-stop-coinbase-subscription-server
+docker-stop-coinbase-subscription-server: ## Stop coinbase subscription server/subgraph Docker container
+	@echo "$(CYAN)Stopping all containers...$(RESET)"
+	docker ps -q --filter ancestor=coinbase-ws-server | xargs -r docker stop
+	@echo "$(GREEN)Containers stopped!$(RESET)"
+
+###############################
+##### TESTING
+###############################
 .PHONY: test-aggregate-bars-query
 test-aggregate-bars-query: ## Test GraphQL query to local router for aggregate bars
 	curl --request POST \
