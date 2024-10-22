@@ -10,16 +10,16 @@ print-required-env-vars: ## Display required environment variables and their cur
 	@echo "APOLLO_ROVER_DEV_ROUTER_VERSION: $${APOLLO_ROVER_DEV_ROUTER_VERSION}"
 	@echo "APOLLO_ROVER_DEV_COMPOSITION_VERSION: $${APOLLO_ROVER_DEV_COMPOSITION_VERSION}"
 
-###############################
-##### INSTALLATION
-###############################
+#######################################
+### INSTALLATION
+#######################################
 .PHONY: install-coinbase-subscription-server-deps
 install-coinbase-subscription-server-deps: ## Install local coinbase subscription server/subgraph dependencies
 	cd coinbase && npm install
 
-###############################
+#######################################
 ##### LOCAL DEV - w/o Docker
-###############################
+#######################################
 .PHONY: start-coinbase-subscription-server
 start-coinbase-subscription-server: ## Start local coinbase subscription server/subgraph
 	cd coinbase && npm start
@@ -28,9 +28,12 @@ start-coinbase-subscription-server: ## Start local coinbase subscription server/
 rover-dev: print-required-env-vars ## Run rover dev to get local router running w/ supergraph
 	rover dev --supergraph-config supergraph.yaml --router-config router.yaml
 
-###############################
-##### LOCAL DEV - w/ Docker
-###############################
+#######################################
+### DEV w/ Docker
+#######################################
+################################
+##### Coinbase Server/Subgraph
+################################
 .PHONY: docker-build-coinbase-subscription-server
 docker-build-coinbase-subscription-server: ## Build the Docker image for coinbase subscription server/subgraph
 	@echo "$(CYAN)Building Docker image...$(RESET)"
@@ -48,13 +51,17 @@ docker-build-and-run-coinbase-subscription-server: docker-build-coinbase-subscri
 
 .PHONY: docker-stop-coinbase-subscription-server
 docker-stop-coinbase-subscription-server: ## Stop coinbase subscription server/subgraph Docker container
-	@echo "$(CYAN)Stopping all containers...$(RESET)"
-	docker ps -q --filter ancestor=coinbase-ws-server | xargs -r docker stop
-	@echo "$(GREEN)Containers stopped!$(RESET)"
+	@echo "$(CYAN)Stopping container...$(RESET)"
+	@if [ $$(docker ps -q -f name=coinbase-ws-server) ]; then \
+		docker stop coinbase-ws-server; \
+		echo "$(GREEN)Container stopped!$(RESET)"; \
+	else \
+		echo "$(YELLOW)No running container found.$(RESET)"; \
+	fi
 
-###############################
-##### TESTING
-###############################
+#######################################
+### TESTING
+#######################################
 .PHONY: test-aggregate-bars-query
 test-aggregate-bars-query: ## Test GraphQL query to local router for aggregate bars
 	curl --request POST \
