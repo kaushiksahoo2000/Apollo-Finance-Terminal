@@ -73,7 +73,7 @@ docker-build-and-run-coinbase-subscription-server: docker-build-coinbase-subscri
 .PHONY: docker-build-router
 docker-build-router: print-required-env-vars ## Build the Docker image for Apollo Router (make sure env variables are right)
 	@echo "$(CYAN)Building Docker image...$(RESET)"
-	docker build -t router .
+	docker build -f Dockerfile.router.local.dev -t router .
 	@echo "$(GREEN)Build complete!$(RESET)"
 
 .PHONY: docker-run-router
