@@ -4,7 +4,7 @@ GREEN = \033[0;32m
 RESET = \033[0m
 
 .PHONY: print-required-env-vars
-print-required-env-vars: ## Display required environment variables and their current values
+print-required-env-vars: ## Display required environment variables and their current values (hint: run "source .env" w/ a .env file)
 	@echo "APOLLO_KEY: $${APOLLO_KEY}"
 	@echo "APOLLO_GRAPH_REF: $${APOLLO_GRAPH_REF}"
 	@echo "APOLLO_ROVER_DEV_ROUTER_VERSION: $${APOLLO_ROVER_DEV_ROUTER_VERSION}"
@@ -29,6 +29,24 @@ rover-dev: print-required-env-vars ## Run rover dev to get local router running 
 	rover dev --supergraph-config supergraph.yaml --router-config router.yaml
 
 #######################################
+##### ROVER -> GRAPHOS
+#######################################
+.PHONY: rover-publish-polygon-subgraph
+rover-publish-polygon-subgraph: ## Publish polygon subgraph  
+	rover subgraph publish Apollo-Finance-Termin-w5mov@current \
+		--schema polygon.graphql \
+		--name polygon
+
+.PHONY: rover-publish-coinbase-subgraph
+rover-publish-coinbase-subgraph: ## Publish coinbase subgraph  
+	rover subgraph introspect \
+	http://localhost:8000/graphql | \
+		rover subgraph publish Apollo-Finance-Termin-w5mov@current \
+		--name coinbase \
+		--schema - \
+		--routing-url http://localhost:8000/graphql
+
+#######################################
 ### DEV w/ Docker
 #######################################
 ################################
@@ -48,16 +66,6 @@ docker-run-coinbase-subscription-server: ## Run coinbase subscription server/sub
 
 .PHONY: docker-build-and-run-coinbase-subscription-server
 docker-build-and-run-coinbase-subscription-server: docker-build-coinbase-subscription-server docker-run-coinbase-subscription-server  ## Build and run coinbase subscription server/subgraph w/ docker
-
-.PHONY: docker-stop-coinbase-subscription-server
-docker-stop-coinbase-subscription-server: ## Stop coinbase subscription server/subgraph Docker container
-	@echo "$(CYAN)Stopping container...$(RESET)"
-	@if [ $$(docker ps -q -f name=coinbase-ws-server) ]; then \
-		docker stop coinbase-ws-server; \
-		echo "$(GREEN)Container stopped!$(RESET)"; \
-	else \
-		echo "$(YELLOW)No running container found.$(RESET)"; \
-	fi
 
 #######################################
 ### TESTING
