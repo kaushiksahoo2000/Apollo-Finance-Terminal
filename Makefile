@@ -44,7 +44,7 @@ rover-publish-coinbase-subgraph: ## Publish coinbase subgraph
 		rover subgraph publish Apollo-Finance-Termin-w5mov@current \
 		--name coinbase \
 		--schema - \
-		--routing-url http://localhost:8000/graphql
+		--routing-url http://127.0.0.1:8000/graphql
 
 #######################################
 ### DEV w/ Docker
