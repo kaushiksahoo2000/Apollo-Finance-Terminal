@@ -3,7 +3,7 @@ supergraph:
   introspection: true
 
 override_subgraph_url:
-  coinbase: "http://host.docker.internal:8000/graphql"
+  coinbase: "https://apollo-coinbase-subscription-server-258139619894.us-central1.run.app/graphql"
 
 cors:
   allow_any_origin: true

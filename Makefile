@@ -39,7 +39,7 @@ rover-publish-polygon-subgraph: print-required-env-vars ## Publish polygon subgr
 		--name polygon
 
 .PHONY: rover-publish-coinbase-subgraph
-rover-publish-coinbase-subgraph: print-required-env-vars ## Publish coinbase subgraph (make sure to have local subgraph running)
+rover-publish-coinbase-subgraph: print-required-env-vars ## Publish coinbase subgraph (make sure to have local subgraph running and update routing-url)
 	rover subgraph introspect \
 	http://localhost:8000/graphql | \
 		rover subgraph publish ${APOLLO_GRAPH_REF} \

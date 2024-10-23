@@ -3,7 +3,7 @@
     "tasks": [{
         "label": "rover dev",
         "command": "rover", // Could be any other shell command
-        "args": ["dev", "--supergraph-config","supergraph.yaml", "--router-config","router.yaml"],
+        "args": ["dev", "--supergraph-config","supergraph.yaml", "--router-config","router-local-rover-dev.yaml"],
         "type": "shell",
     }]
 }
