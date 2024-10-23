@@ -1,0 +1,42 @@
+supergraph:
+  listen: 127.0.0.1:4000
+  introspection: true
+
+cors:
+  allow_any_origin: true
+  methods:
+    - GET
+    - POST
+    - OPTIONS
+  allow_headers: []
+
+sandbox:
+  enabled: true
+
+# Sandbox requires the default landing page to be disabled.
+homepage:
+  enabled: false
+
+headers:
+  all:
+    request:
+      - propagate:
+          matching: .*
+include_subgraph_errors:
+  all: true
+preview_connectors:
+  subgraphs:
+    polygon:
+      $config:
+        apiKey: ${env.POLYGON_API_KEY}
+subscription:
+  enabled: true
+  mode:
+    passthrough:
+      all: # The router uses these subscription settings UNLESS overridden per-subgraph
+        path: /graphql # The absolute URL path to use for subgraph subscription endpoints (Default: /ws)
+        protocol: graphql_ws # The WebSocket-based subprotocol to use for subscription communication (Default: graphql_ws)
+telemetry:
+  instrumentation:
+    spans: 
+      mode: spec_compliant
