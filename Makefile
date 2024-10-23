@@ -27,7 +27,7 @@ start-local-coinbase-subscription-server: ## Start local coinbase subscription s
 
 .PHONY: rover-dev 
 rover-dev: print-required-env-vars ## Run rover dev to get local router running w/ supergraph
-	rover dev --supergraph-config supergraph.yaml --router-config router.yaml
+	rover dev --supergraph-config supergraph.yaml --router-config router-local-rover-dev.yaml
 
 #######################################
 ##### ROVER -> GRAPHOS
