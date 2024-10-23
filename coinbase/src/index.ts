@@ -81,6 +81,7 @@ const serverCleanup = useServer({ schema }, wsServer);
 
 // Set up ApolloServer.
 const server = new ApolloServer({
+  introspection: true,
   schema,
   plugins: [
     // Proper shutdown for the HTTP server.
