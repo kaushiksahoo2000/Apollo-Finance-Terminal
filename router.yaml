@@ -1,11 +1,32 @@
 supergraph:
   listen: 127.0.0.1:4000
+  introspection: true
+
+override_subgraph_url:
+  coinbase: "http://host.docker.internal:8000/graphql"
+
+cors:
+  allow_any_origin: true
+  methods:
+    - GET
+    - POST
+    - OPTIONS
+  allow_headers: []
+
+sandbox:
+  enabled: true
+
+# Sandbox requires the default landing page to be disabled.
+homepage:
+  enabled: false
 
 headers:
   all:
     request:
       - propagate:
           matching: .*
+include_subgraph_errors:
+  all: true
 preview_connectors:
   subgraphs:
     polygon:

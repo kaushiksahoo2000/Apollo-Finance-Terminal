@@ -3,6 +3,7 @@ import { expressMiddleware } from "@apollo/server/express4";
 import { buildSubgraphSchema } from "@apollo/subgraph"; //preserve-line
 import gql from "graphql-tag";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
+import { ApolloServerPluginLandingPageLocalDefault } from "@apollo/server/plugin/landingPage/default";
 import express from "express";
 import { createServer } from "http";
 import { makeExecutableSchema } from "@graphql-tools/schema";
@@ -84,7 +85,8 @@ const server = new ApolloServer({
   plugins: [
     // Proper shutdown for the HTTP server.
     ApolloServerPluginDrainHttpServer({ httpServer }),
-
+    // Enable Apollo Sandbox for all environments
+    ApolloServerPluginLandingPageLocalDefault(),
     // Proper shutdown for the WebSocket server.
     {
       async serverWillStart() {
