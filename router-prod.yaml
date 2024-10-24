@@ -1,5 +1,5 @@
 supergraph:
-  listen: 0.0.0.0:4000
+  listen: "0.0.0.0:${env.PORT}"
   introspection: true
 
 override_subgraph_url:
