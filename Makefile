@@ -14,6 +14,10 @@ print-required-env-vars: ## Display required environment variables and their cur
 #######################################
 ### INSTALLATION
 #######################################
+.PHONY: load-env-vars
+load-env-vars: ## Load environment variables from .env file
+	export $(grep -v '^#' .env | xargs);
+
 .PHONY: install-coinbase-subscription-server-deps
 install-coinbase-subscription-server-deps: ## Install local coinbase subscription server/subgraph dependencies
 	cd coinbase && npm install
@@ -112,7 +116,17 @@ test-ticker-details-query: ## Test GraphQL query to local router for aggregate b
 #######################################
 ##### LOCAL DEV - Client
 #######################################
-## TODO
+.PHONY: ui-install
+ui-install: ## Install frontend dependencies
+	cd frontend && yarn
+
+.PHONY: ui-dev
+ui-dev: ## Start frontend local
+	cd frontend && yarn dev
+
+.PHONY: ui-build
+ui-build: ## Build frontend
+	cd frontend && yarn build
 
 help: ## Display this help screen
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%30s\033[0m  %s\n", $$1, $$2}'
