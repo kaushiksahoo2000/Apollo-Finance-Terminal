@@ -1,6 +1,11 @@
+# Use the Apollo Router image as base
 FROM ghcr.io/apollographql/router:v2.0.0-preview.0
 
-COPY router-prod.yaml /config.yaml
+# Set working directory
+WORKDIR /dist
+
+# Copy configuration file
+COPY router-prod.yaml /dist/config.yaml
 
 # Expose the port that the router will run on
 EXPOSE 4000
@@ -8,4 +13,10 @@ EXPOSE 4000
 # Set environment variables for Cloud Run
 ENV PORT=4000
 
-CMD ["--config", "/config.yaml"]
+# Create a non-root user for security
+RUN adduser -D router
+USER router
+
+# Command to run the router
+ENTRYPOINT ["/router"]
+CMD ["--config", "/dist/config.yaml", "--port", "4000"]
