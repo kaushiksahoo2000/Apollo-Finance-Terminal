@@ -107,11 +107,11 @@ export default async function Home({ searchParams }: Props) {
         <div className="w-full lg:w-1/2">
           <Card className="relative flex h-full min-h-[15rem] flex-col justify-between overflow-hidden">
             <CardHeader>
-              <CardTitle className="z-50 w-fit rounded-full px-4  py-2 font-medium dark:bg-neutral-100/5">
+              <CardTitle className="z-50 w-fit rounded-full font-medium dark:bg-neutral-100/5">
                 Market vibes are{" "}
                 <strong className={sentimentColor}>{marketSentiment}</strong>
               </CardTitle>
-              <CardDescription className="ml-2 text-xs italic text-muted-foreground/40">
+              <CardDescription className="text-xs italic text-muted-foreground">
                 via Yahoo! Finance
               </CardDescription>
             </CardHeader>
@@ -134,10 +134,13 @@ export default async function Home({ searchParams }: Props) {
             />
           </Card>
         </div>
-        <div className="w-full lg:w-1/2">
-          <h3 className="mb-4 mt-2 text-lg font-semibold">
-            Sector Performance
-          </h3>
+        <div className="flex w-full flex-col justify-between lg:w-1/2">
+          <div>
+            <h3 className="text-lg font-semibold">Sector Performance</h3>
+            <p className="mb-4 text-xs italic text-muted-foreground">
+              via Financial Modeling Prep
+            </p>
+          </div>
           <Suspense fallback={<div>Loading...</div>}>
             <SectorBadges />
           </Suspense>
