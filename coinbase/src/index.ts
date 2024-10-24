@@ -6,7 +6,6 @@ import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHt
 import { ApolloServerPluginLandingPageLocalDefault } from "@apollo/server/plugin/landingPage/default";
 import express from "express";
 import { createServer } from "http";
-import { makeExecutableSchema } from "@graphql-tools/schema";
 import { WebSocketServer } from "ws";
 import { useServer } from "graphql-ws/lib/use/ws";
 import { PubSub } from "graphql-subscriptions";
@@ -46,7 +45,7 @@ const typeDefs = gql`
     }
 
     type Subscription {
-        coinbaseBTCUpdate: TickerMessage
+        coinbaseUpdate: TickerMessage
     }
 
     type Query {
@@ -57,8 +56,8 @@ const typeDefs = gql`
 // Resolver map
 const resolvers = {
   Subscription: {
-    coinbaseBTCUpdate: {
-      subscribe: () => pubsub.asyncIterator(["COINBASE_BTC_UPDATE"]),
+    coinbaseUpdate: {
+      subscribe: () => pubsub.asyncIterator(["COINBASE_UPDATE"]),
     },
   },
 };
@@ -139,7 +138,7 @@ function connectToCoinbase() {
     // Subscibe to BTC real-time price updates
     const subscribeMessage = {
       type: "subscribe",
-      product_ids: ["BTC-USD"],
+      product_ids: ["BTC-USD", "ETH-USD", "SOL-USD", "DOGE-USD"],
       channel: "ticker",
     };
 
@@ -162,8 +161,8 @@ function connectToCoinbase() {
   // Set up throttled publishing
   setInterval(() => {
     if (lastMessage) {
-      pubsub.publish("COINBASE_BTC_UPDATE", {
-        coinbaseBTCUpdate: lastMessage,
+      pubsub.publish("COINBASE_UPDATE", {
+        coinbaseUpdate: lastMessage,
       });
       lastMessage = null;
     }
