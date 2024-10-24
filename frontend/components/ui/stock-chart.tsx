@@ -63,7 +63,6 @@ const CustomTooltip = ({
 }
 
 export function TickerPerformanceChart({ ticker }: { ticker: string }) {
-  // const { data } = GET_TICKER_MOCK
   const [selectedPeriod, setSelectedPeriod] = useState<TimePeriod>("1M")
   const { data, error } = useSuspenseQuery(GET_TICKER_DATA, {
     variables: {

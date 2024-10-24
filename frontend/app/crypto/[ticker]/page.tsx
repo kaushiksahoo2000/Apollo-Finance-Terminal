@@ -56,8 +56,6 @@ export default async function CryptoPage({ params, searchParams }: Props) {
     console.error(error)
   }
 
-  console.log(data)
-
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col">
