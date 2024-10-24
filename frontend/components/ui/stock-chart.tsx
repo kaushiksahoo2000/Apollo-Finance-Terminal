@@ -68,7 +68,7 @@ export function TickerPerformanceChart({ ticker }: { ticker: string }) {
     variables: {
       ticker,
       from: "2024-09-01",
-      to: "2024-10-23",
+      to: "2024-10-24",
       timespan: "day",
     },
     // errorPolicy: "ignore",
@@ -89,12 +89,9 @@ export function TickerPerformanceChart({ ticker }: { ticker: string }) {
 
   return (
     <Card className="w-full">
-      <CardHeader>
-        {/* <CardTitle>{ticker || data.aggregateBars.ticker}</CardTitle> */}
-        {/* <CardDescription>
-          Showing total visitors for the last 6 months
-        </CardDescription> */}
-        <div className="flex flex-wrap justify-end gap-2">
+      {/* <CardHeader>
+      {/* <CardTitle>{ticker || data.aggregateBars.ticker}</CardTitle> */}
+      {/* <div className="flex flex-wrap justify-end gap-2">
           {timePeriods.map((period) => (
             <Button
               key={period}
@@ -106,7 +103,7 @@ export function TickerPerformanceChart({ ticker }: { ticker: string }) {
             </Button>
           ))}
         </div>
-      </CardHeader>
+      </CardHeader> */}
       <CardContent className="p-0">
         <ChartContainer config={chartConfig} className="p-0">
           <ResponsiveContainer width="100%" height="100%">

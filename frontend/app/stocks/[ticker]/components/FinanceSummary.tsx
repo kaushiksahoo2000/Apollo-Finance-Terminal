@@ -52,7 +52,6 @@ export default async function FinanceSummary({ ticker }: { ticker: string }) {
         truncateLength={500}
         className="text-md inline text-muted-foreground"
       />
-
       <div className="flex flex-row flex-wrap gap-2">
         {keysToDisplay.map((item) => {
           const section = item.section || "summaryDetail"
@@ -70,6 +69,9 @@ export default async function FinanceSummary({ ticker }: { ticker: string }) {
           )
         })}
       </div>
+      <p className="text-xs italic text-muted-foreground">
+        via Financial Modeling Prep
+      </p>
     </div>
   )
 }

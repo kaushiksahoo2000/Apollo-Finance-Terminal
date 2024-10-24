@@ -1,6 +1,12 @@
 import FinanceSummary from "@/app/stocks/[ticker]/components/FinanceSummary"
 import News from "@/app/stocks/[ticker]/components/News"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 import { DEFAULT_INTERVAL, DEFAULT_RANGE } from "@/lib/yahoo-finance/constants"
 import {
   validateInterval,
@@ -121,6 +127,9 @@ export default async function StocksPage({ params, searchParams }: Props) {
         <Card>
           <CardHeader>
             <CardTitle>News</CardTitle>
+            <CardDescription className="text-xs italic text-muted-foreground">
+              via Yahoo! Finance
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <Suspense

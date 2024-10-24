@@ -74,7 +74,7 @@ export default function Navigation() {
       <div className="container">
         <div className="mb-1 flex w-full flex-row justify-between py-4">
           <div className="flex flex-row items-center">
-            <Link href="/" className="ml-2 text-lg font-bold">
+            <Link href="/" className="text-lg font-bold">
               Apollo Finance Terminal
             </Link>
           </div>
@@ -114,35 +114,37 @@ export const SideMenu = () => {
         <Button
           variant="outline"
           size="icon"
-          className="w-full bg-purple-800"
+          className={`w-full ${pathname === "/" ? "bg-purple-900 text-white" : ""}`}
           onClick={() => router.push("/")}
         >
           <HomeIcon className="h-4 w-4" />
         </Button>
         <Separator />
-        {/* <Button variant="outline" size="icon">
-          <Search />
-        </Button> */}
         {NAVIGATION.map((item) => (
-          <Link href={item.href} key={item.title}>
-            {/* highlight button if path matches */}
-            <Button
-              variant="outline"
-              size="icon"
-              className={`w-full ${pathname === item.href ? "bg-purple-800" : ""}`}
-            >
-              {item.icon}
-            </Button>
-          </Link>
+          <Button
+            key={item.title}
+            variant="outline"
+            size="icon"
+            className={`w-full ${pathname.includes(item.href) ? "bg-purple-900 text-white" : ""}`}
+            onClick={() => router.push(item.href)}
+          >
+            {item.icon}
+          </Button>
         ))}
         <Separator />
         {EDUCATION.map((item) => (
-          <Link href={item.href} key={item.title}>
-            <Button variant="outline" size="icon">
-              {item.icon}
-            </Button>
-          </Link>
+          <Button
+            key={item.title}
+            variant="outline"
+            size="icon"
+            className={`w-full ${pathname.includes(item.href) ? "bg-purple-900 text-white" : ""}`}
+            onClick={() => router.push(item.href)}
+          >
+            {item.icon}
+          </Button>
         ))}
+        <Separator />
+        <ThemeToggle />
       </div>
     </aside>
   )
