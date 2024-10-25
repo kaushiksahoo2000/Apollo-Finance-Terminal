@@ -6,6 +6,7 @@ RESET = \033[0m
 .PHONY: print-required-env-vars
 print-required-env-vars: ## Display required environment variables and their current values (hint: run "source .env" w/ a .env file)
 	@echo "POLYGON_API_KEY: $${POLYGON_API_KEY}"
+	@echo "GEMINI_API_KEY: $${GEMINI_API_KEY}"
 	@echo "APOLLO_KEY: $${APOLLO_KEY}"
 	@echo "APOLLO_GRAPH_REF: $${APOLLO_GRAPH_REF}"
 	@echo "APOLLO_ROVER_DEV_ROUTER_VERSION: $${APOLLO_ROVER_DEV_ROUTER_VERSION}"
@@ -36,6 +37,12 @@ rover-dev: print-required-env-vars ## Run rover dev to get local router running 
 #######################################
 ##### ROVER -> GRAPHOS
 #######################################
+.PHONY: rover-publish-gemini-subgraph
+rover-publish-gemini-subgraph: print-required-env-vars ## Publish gemini subgraph  
+	rover subgraph publish ${APOLLO_GRAPH_REF} \
+		--schema gemini.graphql \
+		--name gemini
+
 .PHONY: rover-publish-polygon-subgraph
 rover-publish-polygon-subgraph: print-required-env-vars ## Publish polygon subgraph  
 	rover subgraph publish ${APOLLO_GRAPH_REF} \
