@@ -4,6 +4,7 @@ import { FileIcon } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
 import { codeToHtml } from "shiki"
+import { ScrollArea } from "./scroll-area"
 
 interface CodeProps {
   code: string
@@ -65,7 +66,7 @@ export function Code({
               {filename}
               {/* <span className="ml-auto">before</span> */}
             </div>
-            {renderCode(code, highlighted)}
+            <ScrollArea>{renderCode(code, highlighted)}</ScrollArea>
           </div>
           {/* <div>
             <div className="flex items-center bg-accent p-2 text-sm text-foreground">

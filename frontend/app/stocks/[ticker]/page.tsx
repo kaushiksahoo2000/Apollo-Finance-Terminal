@@ -24,6 +24,11 @@ import { TickerPerformanceChart } from "@/components/ui/stock-chart"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { SourceTag } from "@/components/source-tag"
+import { Separator } from "@/components/ui/separator"
+import { Sparkles } from "lucide-react"
+import { AI_RESPONSE_MOCK } from "@/lib/mocks"
+import { Code } from "@/components/ui/code"
+import AIAnalysis from "./components/ai-section"
 
 type Props = {
   params: Promise<{
@@ -125,6 +130,11 @@ export default async function StocksPage({ params, searchParams }: Props) {
             </PreloadQuery>
           </div>
         </div>
+
+        <AIAnalysis ticker={ticker} />
+
+        <Separator />
+
         <Card>
           <CardHeader>
             <CardTitle>News</CardTitle>

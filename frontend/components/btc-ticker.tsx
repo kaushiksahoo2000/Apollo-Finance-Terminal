@@ -7,11 +7,15 @@ import {
   ArrowUpIcon,
   ArrowUpRightIcon,
   BitcoinIcon,
+  Loader2,
 } from "lucide-react"
 import { useSubscription } from "@apollo/client"
 import { CRYPTO_SUBSCRIPTION } from "@/lib/graphql/queries"
 import { Skeleton } from "./ui/skeleton"
 import { SourceTag } from "./source-tag"
+import NumberTicker from "./ui/number-ticker"
+import BlurIn from "./ui/blur-in"
+import BlurFade from "./ui/blur-fade"
 
 type Ticker = "btc-usd" | "eth-usd" | "sol-usd" | "doge-usd"
 
@@ -31,6 +35,14 @@ export const CryptoTickerSkeleton = () => {
         <Skeleton className="h-8 w-full" />
         <Skeleton className="h-4 w-10" />
       </div>
+    </div>
+  )
+}
+
+const LoadingSpinner = () => {
+  return (
+    <div className="flex items-center justify-center">
+      <Loader2 className="size-6 animate-spin" />
     </div>
   )
 }
@@ -64,9 +76,16 @@ export function BitcoinTicker({ ticker = "btc-usd" }: { ticker: Ticker }) {
           <p className="text-xs text-muted-foreground">
             {name[ticker]} · {ticker.toUpperCase().split("-")[0]}
           </p>
-          <p className="text-2xl font-bold">
-            ${price > 0 ? price?.toLocaleString() : "..."}
+          <p className="mt-1 text-2xl font-bold">
+            {price > 0 ? (
+              <BlurFade>
+                <NumberTicker value={price} decimalPlaces={2} />
+              </BlurFade>
+            ) : (
+              <Loader2 className="size-6 animate-spin" />
+            )}
           </p>
+
           <div
             className={`flex items-center justify-start ${pricePercentChg24H >= 0 ? "text-green-500" : "text-red-500"}`}
           >

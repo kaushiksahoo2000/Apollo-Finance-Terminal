@@ -6,6 +6,8 @@ import { ThemeProvider } from "@/components/ui/theme-provider"
 import Navigation, { SideMenu } from "@/components/ui/navigation"
 import { ApolloProviderWrapper } from "@/lib/graphql/provider"
 import { DockMenu } from "@/components/layout/dock-menu"
+import { Toaster } from "@/components/ui/toaster"
+import Footer from "@/components/ui/footer"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -15,7 +17,7 @@ export const metadata: Metadata = {
     "Apollo Finance Terminal is an open source stock and finance terminal, showcasing the power of Apollo GraphOS and Next.js.",
   icons: {
     icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
+    // shortcut: "/favicon.ico",
     apple: "/logo.png",
   },
   openGraph: {
@@ -52,6 +54,7 @@ export default function RootLayout({
               <Navigation />
               <main className="container mt-6 pl-20">{children}</main>
               {/* <DockMenu /> */}
+              <Toaster />
             </ThemeProvider>
           </ApolloProviderWrapper>
         </body>
