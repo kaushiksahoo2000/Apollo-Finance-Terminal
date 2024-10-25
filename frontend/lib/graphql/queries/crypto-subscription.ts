@@ -1,20 +1,20 @@
 import { gql } from "@apollo/client"
 
 export const CRYPTO_SUBSCRIPTION = gql`
-  subscription Subscription {
-    coinbaseBTCUpdate {
-      timestamp
-      sequence_num
+  subscription CRYPTO_SUBSCRIPTION {
+    coinbaseUpdate {
       events {
         type
         tickers {
           product_id
           price
-          low_24_h
           high_24_h
+          low_24_h
           price_percent_chg_24_h
         }
       }
+      sequence_num
+      timestamp
     }
   }
 `
