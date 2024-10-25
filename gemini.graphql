@@ -1,0 +1,116 @@
+extend schema
+  @link(url: "https://specs.apollo.dev/federation/v2.10", import: ["@key", "@requires"])
+  @link(
+    url: "https://specs.apollo.dev/connect/v0.1"
+    import: ["@source", "@connect"]
+  )
+  @source(
+    name: "geminiV1Beta"
+    http: {
+      baseURL: "https://generativelanguage.googleapis.com/v1beta/models",
+      headers: [
+        { name: "Content-Type", value: "application/json" }
+      ]
+    }
+  )
+
+type UsageMetadata {
+  promptTokenCount: Int
+  candidatesTokenCount: Int
+  totalTokenCount: Int
+}
+
+type CitationSources {
+  startIndex: Int
+  endIndex: Int
+  uri: String
+  license: String
+}
+
+type CitationMetadata {
+  citationSources: [CitationSources]
+}
+
+type SafetyRatings {
+  category: String
+  probability: String
+}
+
+type Parts {
+  text: String
+}
+
+type Content {
+  role: String
+  parts: [Parts]
+}
+
+type Candidates {
+  finishReason: String
+  index: Int
+  citationMetadata: CitationMetadata
+  safetyRatings: [SafetyRatings]
+  content: Content
+}
+
+type AIFinancialsContent {
+  modelVersion: String
+  usageMetadata: UsageMetadata
+  candidates: [Candidates]
+}
+
+
+type Mutation {
+  genAIFinancialsContent (tickerPrompt: String!): AIFinancialsContent
+    @connect(
+        source: "geminiV1Beta"
+        http: { 
+          POST: "/gemini-1.5-flash-latest:generateContent?key={$config.apiKey}"
+          body: """
+          $(
+            {
+              contents: [
+                {
+                  parts: [
+                    {
+                      text: $args.tickerPrompt
+                    }
+                  ]
+                }
+              ]
+            }
+          )
+          """
+        }
+        selection: """
+          candidates {
+            content {
+              parts {
+                text
+              }
+              role
+            }
+            finishReason
+            index
+            safetyRatings {
+              category
+              probability
+            }
+            citationMetadata {
+              citationSources {
+                startIndex
+                endIndex
+                uri
+                license
+              }
+            }
+          }
+          usageMetadata {
+            promptTokenCount
+            candidatesTokenCount
+            totalTokenCount
+          }
+          modelVersion
+        """
+      )
+}

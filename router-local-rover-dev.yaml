@@ -29,6 +29,9 @@ preview_connectors:
     polygon:
       $config:
         apiKey: ${env.POLYGON_API_KEY}
+    gemini:
+      $config:
+        apiKey: ${env.GEMINI_API_KEY}
 subscription:
   enabled: true
   mode:
