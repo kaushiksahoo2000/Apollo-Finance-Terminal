@@ -8,13 +8,7 @@ export default function Credits() {
       <div className="mx-auto mt-12 flex max-w-2xl flex-col gap-4 md:text-5xl">
         <BlurIn
           className="text-pretty text-left text-muted-foreground md:text-2xl"
-          word="This app wouldn't be possible without the amazing open-source technologies that power it. We're incredibly grateful to the open-source community for providing the tools and frameworks that make development faster and more accessible. A huge shout out to:
-Apollo Client
-Apollo Server
-Apollo Router
-Rover
-Next.js
-Thank you to all the contributors who make these projects great!"
+          word="This app wouldn't be possible without the amazing open-source technologies that power it. We're incredibly grateful to the open-source community for providing the tools and frameworks that make development faster and more accessible. A huge shout out to:"
         />
         <BlurIn
           className="text-pretty text-left text-muted-foreground md:text-2xl"
