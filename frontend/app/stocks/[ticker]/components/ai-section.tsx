@@ -66,6 +66,7 @@ export default function AIAnalysis({ ticker }: { ticker: string }) {
           <div className="block gap-2">
             <ShinyButton
               className="rounded-full py-2"
+              //@ts-ignore
               disabled={loading || data}
               onClick={handleGenerateAIResponse}
             >
