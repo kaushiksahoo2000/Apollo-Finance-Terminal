@@ -1,3 +1,54 @@
+export const AI_RESPONSE_MOCK = {
+  candidates: [
+    {
+      content: {
+        parts: [
+          {
+            text: "## Apple Inc. (AAPL) Financials: A Glimpse\n\nApple Inc. is a financial powerhouse. Here's a breakdown of key financial aspects:\n\n**Strengths:**\n\n* **Dominant Revenue:** Apple consistently generates massive revenue, consistently reaching over $300 billion annually.\n* **Strong Profitability:** Apple boasts exceptional profit margins, reflecting efficient operations and premium pricing.\n* **Cash Flow Machine:**  Apple generates significant free cash flow, enabling significant stock buybacks, dividends, and investments.\n* **Brand Power & Ecosystem:** Apple enjoys an immensely powerful brand, attracting loyal customers within a locked-in ecosystem.\n\n**Key Financial Metrics (as of Q4 2022):**\n\n* **Revenue:** $386 billion\n* **Net Income:** $99.8 billion\n* **Earnings Per Share:** $5.77\n* **Gross Profit Margin:** 43.3%\n* **Operating Profit Margin:** 27.8%\n* **Net Profit Margin:** 25.8%\n* **Free Cash Flow:** $115.4 billion\n* **Debt to Equity Ratio:** 0.47\n* **Current Ratio:** 1.27\n\n**Key Factors Driving Apple's Financials:**\n\n* **iPhone Sales:** The iPhone remains Apple's flagship product, generating a substantial portion of revenue.\n* **Services Growth:** Apple's services segment, encompassing subscriptions like Apple Music, iCloud, and Apple Pay, is experiencing robust growth.\n* **Wearables & Home Products:**  Apple Watch, AirPods, and HomePod are gaining popularity and contributing to the overall growth.\n* **Mac & iPad Sales:**  Though facing competition, Mac and iPad sales continue to perform well.\n\n**Challenges:**\n\n* **Supply Chain Constraints:**  Apple, like many tech companies, has faced supply chain issues due to global factors.\n* **Competition:**  Apple faces fierce competition from Samsung, Google, and other players in various segments.\n* **Economic Uncertainty:**  Global economic uncertainty and inflation may impact consumer spending on discretionary products.\n\n**Investment Perspective:**\n\nApple remains a strong company with a solid financial foundation. Its growth in services, wearables, and other areas suggests potential for continued expansion. However, investors need to consider potential challenges like competition, supply chain issues, and macroeconomic factors.\n\n**Disclaimer:** This information is for general knowledge and informational purposes only and does not constitute financial advice. Before making any investment decisions, it is crucial to consult with a qualified financial professional and conduct thorough research.",
+          },
+        ],
+        role: "model",
+      },
+      finishReason: "STOP",
+      index: 0,
+      safetyRatings: [
+        {
+          category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+          probability: "NEGLIGIBLE",
+        },
+        {
+          category: "HARM_CATEGORY_HATE_SPEECH",
+          probability: "NEGLIGIBLE",
+        },
+        {
+          category: "HARM_CATEGORY_HARASSMENT",
+          probability: "NEGLIGIBLE",
+        },
+        {
+          category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+          probability: "NEGLIGIBLE",
+        },
+      ],
+      citationMetadata: {
+        citationSources: [
+          {
+            startIndex: 2270,
+            endIndex: 2392,
+            uri: "https://devyantra.com/dividend-stock-how-to-choose-the-right-one-for-beginners/",
+            license: "",
+          },
+        ],
+      },
+    },
+  ],
+  usageMetadata: {
+    promptTokenCount: 8,
+    candidatesTokenCount: 538,
+    totalTokenCount: 546,
+  },
+  modelVersion: "gemini-1.5-flash-001",
+}
+
 export const GET_TICKER_DETAILS_MOCK = {
   data: {
     tickerDetails: {

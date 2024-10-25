@@ -32,6 +32,7 @@ import { StockPerformanceChart } from "@/components/components-stock-performance
 import { BitcoinTicker } from "@/components/btc-ticker"
 import { Watchlist } from "@/components/watchlist"
 import tickers from "@/data/tickers.json"
+import { SourceTag } from "@/components/source-tag"
 
 const watchlist = tickers.slice(0, 10)
 
@@ -112,7 +113,7 @@ export default async function Home({ searchParams }: Props) {
                 <strong className={sentimentColor}>{marketSentiment}</strong>
               </CardTitle>
               <CardDescription className="text-xs italic text-muted-foreground">
-                via Yahoo! Finance
+                <SourceTag type="yahoo" />
               </CardDescription>
             </CardHeader>
             {headline && headline.title && (
@@ -137,9 +138,7 @@ export default async function Home({ searchParams }: Props) {
         <div className="flex w-full flex-col justify-between lg:w-1/2">
           <div>
             <h3 className="text-lg font-semibold">Sector Performance</h3>
-            <p className="mb-4 text-xs italic text-muted-foreground">
-              via Financial Modeling Prep
-            </p>
+            <SourceTag type="fmp" />
           </div>
           <Suspense fallback={<div>Loading...</div>}>
             <SectorBadges />

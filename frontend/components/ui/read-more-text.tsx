@@ -15,7 +15,7 @@ export default function ReadMoreText({
   const truncateText = text.slice(0, truncateLength) + "..."
 
   return (
-    <div className={cn("flex flex-col gap-2", className)}>
+    <div className={cn("flex flex-col", className)}>
       <p>{isReadMore ? text : truncateText}</p>
       {text.length > truncateLength && (
         <button

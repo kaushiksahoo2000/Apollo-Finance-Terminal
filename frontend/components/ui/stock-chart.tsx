@@ -26,6 +26,7 @@ import { Button } from "./button"
 import { useState } from "react"
 import { GET_TICKER_DATA } from "@/lib/graphql/queries"
 import { useSuspenseQuery } from "@apollo/client"
+import { SourceTag } from "../source-tag"
 
 const timePeriods = ["1D", "1W", "1M", "3M", "1Y", "5Y"] as const
 type TimePeriod = (typeof timePeriods)[number]
@@ -187,6 +188,7 @@ export function TickerPerformanceChart({ ticker }: { ticker: string }) {
             </div>
           </div>
         </div>
+        <SourceTag type="connector" />
       </CardFooter>
     </Card>
   )

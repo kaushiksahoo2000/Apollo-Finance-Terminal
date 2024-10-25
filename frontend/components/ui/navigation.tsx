@@ -6,11 +6,12 @@ import {
   ChartArea,
   Globe,
   Newspaper,
-  Book,
+  // Book,
   Bitcoin,
-  BarChart,
+  // BarChart,
   Search,
 } from "lucide-react"
+import { Home, Book, GraphUp as BarChart, InfoCircle } from "iconoir-react"
 import { InfoCircledIcon, SlashIcon } from "@radix-ui/react-icons"
 
 import { ThemeToggle } from "./theme-toggle"
@@ -29,6 +30,7 @@ import { usePathname, useRouter } from "next/navigation"
 import CommandMenu from "./command-menu"
 import { Button } from "./button"
 import { Separator } from "./separator"
+import { Logo } from "../logo"
 
 const NAVIGATION = [
   { title: "Stocks", href: "/stocks/NVDA", icon: <BarChart /> },
@@ -39,7 +41,7 @@ const NAVIGATION = [
 
 const EDUCATION = [
   { title: "Guide", href: "/guide", icon: <Book /> },
-  { title: "Credits", href: "/credits", icon: <InfoCircledIcon /> },
+  { title: "Credits", href: "/credits", icon: <InfoCircle /> },
 ]
 
 export function BreadcrumbWithCustomSeparator() {
@@ -73,7 +75,8 @@ export default function Navigation() {
     <header className="sticky top-0 z-40 mb-4 mt-4 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container">
         <div className="mb-1 flex w-full flex-row justify-between py-4">
-          <div className="flex flex-row items-center">
+          <div className="flex flex-row items-center gap-2">
+            <Logo />
             <Link href="/" className="text-lg font-bold">
               Apollo Finance Terminal
             </Link>
@@ -117,7 +120,7 @@ export const SideMenu = () => {
           className={`w-full ${pathname === "/" ? "bg-purple-900 text-white" : ""}`}
           onClick={() => router.push("/")}
         >
-          <HomeIcon className="h-4 w-4" />
+          <Home className="size-4" />
         </Button>
         <Separator />
         {NAVIGATION.map((item) => (

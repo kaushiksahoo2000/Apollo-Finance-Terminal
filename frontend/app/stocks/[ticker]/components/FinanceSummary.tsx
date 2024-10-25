@@ -1,3 +1,4 @@
+import { SourceTag } from "@/components/source-tag"
 import { Badge } from "@/components/ui/badge"
 import ReadMoreText from "@/components/ui/read-more-text"
 import { query } from "@/lib/graphql"
@@ -47,11 +48,15 @@ export default async function FinanceSummary({ ticker }: { ticker: string }) {
 
   return (
     <div className="flex flex-col gap-4">
-      <ReadMoreText
-        text={data.tickerDetails.description ?? ""}
-        truncateLength={500}
-        className="text-md inline text-muted-foreground"
-      />
+      <div>
+        <ReadMoreText
+          text={data.tickerDetails.description ?? ""}
+          truncateLength={500}
+          className="text-md inline text-muted-foreground"
+        />
+        <br />
+        <SourceTag type="connector" />
+      </div>
       <div className="flex flex-row flex-wrap gap-2">
         {keysToDisplay.map((item) => {
           const section = item.section || "summaryDetail"
@@ -68,10 +73,8 @@ export default async function FinanceSummary({ ticker }: { ticker: string }) {
             </Badge>
           )
         })}
+        <SourceTag type="fmp" />
       </div>
-      <p className="text-xs italic text-muted-foreground">
-        via Financial Modeling Prep
-      </p>
     </div>
   )
 }

@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@apollo/brand": "^0.7.0",
+    "@apollo/icons": "^0.6.1",
+    "iconoir-react": "^7.9.0"
+  }
+}

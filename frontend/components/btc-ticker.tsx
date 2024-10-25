@@ -7,10 +7,15 @@ import {
   ArrowUpIcon,
   ArrowUpRightIcon,
   BitcoinIcon,
+  Loader2,
 } from "lucide-react"
 import { useSubscription } from "@apollo/client"
 import { CRYPTO_SUBSCRIPTION } from "@/lib/graphql/queries"
 import { Skeleton } from "./ui/skeleton"
+import { SourceTag } from "./source-tag"
+import NumberTicker from "./ui/number-ticker"
+import BlurIn from "./ui/blur-in"
+import BlurFade from "./ui/blur-fade"
 
 type Ticker = "btc-usd" | "eth-usd" | "sol-usd" | "doge-usd"
 
@@ -34,25 +39,30 @@ export const CryptoTickerSkeleton = () => {
   )
 }
 
+const LoadingSpinner = () => {
+  return (
+    <div className="flex items-center justify-center">
+      <Loader2 className="size-6 animate-spin" />
+    </div>
+  )
+}
+
 export function BitcoinTicker({ ticker = "btc-usd" }: { ticker: Ticker }) {
-  const [change, setChange] = useState({})
   const [price, setPrice] = useState(0)
   const [pricePercentChg24H, setPricePercentChg24H] = useState(0)
   const { data, loading, error } = useSubscription(CRYPTO_SUBSCRIPTION)
 
   useEffect(() => {
-    console.log("state", data?.coinbaseBTCUpdate?.events[0]?.tickers[0])
     if (
-      data?.coinbaseBTCUpdate?.events[0]?.tickers[0].product_id.toLowerCase() ===
+      data?.coinbaseUpdate?.events[0]?.tickers[0].product_id.toLowerCase() ===
       ticker
     ) {
-      setPrice(data?.coinbaseBTCUpdate?.events[0]?.tickers[0]?.price || 0)
+      setPrice(data?.coinbaseUpdate?.events[0]?.tickers[0]?.price || 0)
       setPricePercentChg24H(
-        data?.coinbaseBTCUpdate?.events[0]?.tickers[0]
-          ?.price_percent_chg_24_h || 0
+        data?.coinbaseUpdate?.events[0]?.tickers[0]?.price_percent_chg_24_h || 0
       )
     }
-  }, [change, price, pricePercentChg24H, data])
+  }, [price, pricePercentChg24H, data, ticker])
 
   if (loading) return <CryptoTickerSkeleton />
 
@@ -66,9 +76,16 @@ export function BitcoinTicker({ ticker = "btc-usd" }: { ticker: Ticker }) {
           <p className="text-xs text-muted-foreground">
             {name[ticker]} · {ticker.toUpperCase().split("-")[0]}
           </p>
-          <p className="text-2xl font-bold">
-            ${price > 0 ? price?.toLocaleString() : "..."}
+          <p className="mt-1 text-2xl font-bold">
+            {price > 0 ? (
+              <BlurFade>
+                <NumberTicker value={price} decimalPlaces={2} />
+              </BlurFade>
+            ) : (
+              <Loader2 className="size-6 animate-spin" />
+            )}
           </p>
+
           <div
             className={`flex items-center justify-start ${pricePercentChg24H >= 0 ? "text-green-500" : "text-red-500"}`}
           >
@@ -81,6 +98,7 @@ export function BitcoinTicker({ ticker = "btc-usd" }: { ticker: Ticker }) {
               {Math.abs(pricePercentChg24H).toFixed(2)}%
             </span>
           </div>
+          <SourceTag type="subscription" />
         </div>
       )}
     </div>
