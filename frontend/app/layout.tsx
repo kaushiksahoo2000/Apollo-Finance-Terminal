@@ -13,6 +13,21 @@ export const metadata: Metadata = {
   title: "Apollo Finance Terminal: Stock Quotes, Market News, & Analysis",
   description:
     "Apollo Finance Terminal is an open source stock and finance terminal, showcasing the power of Apollo GraphOS and Next.js.",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/logo.png",
+  },
+  openGraph: {
+    title: "Apollo Finance Terminal: Stock Quotes, Market News, & Analysis",
+    description:
+      "Apollo Finance Terminal is an open source stock and finance terminal, showcasing the power of Apollo GraphOS and Next.js.",
+    images: ["/logo.png"],
+    type: "website",
+    siteName: "Apollo Finance Terminal",
+    locale: "en_US",
+    url: "https://apollo-finance-terminal.vercel.app",
+  },
 }
 
 export default function RootLayout({

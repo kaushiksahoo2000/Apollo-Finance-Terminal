@@ -11,6 +11,7 @@ import {
 import { useSubscription } from "@apollo/client"
 import { CRYPTO_SUBSCRIPTION } from "@/lib/graphql/queries"
 import { Skeleton } from "./ui/skeleton"
+import { SourceTag } from "./source-tag"
 
 type Ticker = "btc-usd" | "eth-usd" | "sol-usd" | "doge-usd"
 
@@ -35,24 +36,21 @@ export const CryptoTickerSkeleton = () => {
 }
 
 export function BitcoinTicker({ ticker = "btc-usd" }: { ticker: Ticker }) {
-  const [change, setChange] = useState({})
   const [price, setPrice] = useState(0)
   const [pricePercentChg24H, setPricePercentChg24H] = useState(0)
   const { data, loading, error } = useSubscription(CRYPTO_SUBSCRIPTION)
 
   useEffect(() => {
-    console.log("state", data?.coinbaseBTCUpdate?.events[0]?.tickers[0])
     if (
-      data?.coinbaseBTCUpdate?.events[0]?.tickers[0].product_id.toLowerCase() ===
+      data?.coinbaseUpdate?.events[0]?.tickers[0].product_id.toLowerCase() ===
       ticker
     ) {
-      setPrice(data?.coinbaseBTCUpdate?.events[0]?.tickers[0]?.price || 0)
+      setPrice(data?.coinbaseUpdate?.events[0]?.tickers[0]?.price || 0)
       setPricePercentChg24H(
-        data?.coinbaseBTCUpdate?.events[0]?.tickers[0]
-          ?.price_percent_chg_24_h || 0
+        data?.coinbaseUpdate?.events[0]?.tickers[0]?.price_percent_chg_24_h || 0
       )
     }
-  }, [change, price, pricePercentChg24H, data])
+  }, [price, pricePercentChg24H, data, ticker])
 
   if (loading) return <CryptoTickerSkeleton />
 
@@ -81,6 +79,7 @@ export function BitcoinTicker({ ticker = "btc-usd" }: { ticker: Ticker }) {
               {Math.abs(pricePercentChg24H).toFixed(2)}%
             </span>
           </div>
+          <SourceTag type="subscription" />
         </div>
       )}
     </div>

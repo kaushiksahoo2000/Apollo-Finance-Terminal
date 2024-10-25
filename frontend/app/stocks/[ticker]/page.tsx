@@ -23,6 +23,7 @@ import { GET_TICKER_DATA, GET_TICKER_DETAILS } from "@/lib/graphql/queries"
 import { TickerPerformanceChart } from "@/components/ui/stock-chart"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { SourceTag } from "@/components/source-tag"
 
 type Props = {
   params: Promise<{
@@ -128,7 +129,7 @@ export default async function StocksPage({ params, searchParams }: Props) {
           <CardHeader>
             <CardTitle>News</CardTitle>
             <CardDescription className="text-xs italic text-muted-foreground">
-              via Yahoo! Finance
+              <SourceTag type="yahoo" />
             </CardDescription>
           </CardHeader>
           <CardContent>
