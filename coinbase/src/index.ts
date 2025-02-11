@@ -49,12 +49,18 @@ const typeDefs = gql`
     }
 
     type Query {
+        me: String
         _dummy: String
     }
 `;
 
 // Resolver map
 const resolvers = {
+  Query: {
+    me() {
+      return "hi its me!";
+    },
+  },
   Subscription: {
     coinbaseUpdate: {
       subscribe: () => pubsub.asyncIterator(["COINBASE_UPDATE"]),

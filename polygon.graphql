@@ -61,6 +61,7 @@ type Query {
     @connect(
         source: "polygonV3"
         http: { GET: "/reference/tickers/{$args.ticker}"}
+        entity: true
         selection: """
           $.results {
             ticker: ticker
