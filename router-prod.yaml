@@ -27,12 +27,12 @@ headers:
           matching: .*
 include_subgraph_errors:
   all: true
-preview_connectors:
-  subgraphs:
-    polygon:
+connectors:
+  sources:
+    polygon.v3:
       $config:
         apiKey: ${env.POLYGON_API_KEY}
-    gemini:
+    gemini.v1:
       $config:
         apiKey: ${env.GEMINI_API_KEY}
 subscription:
