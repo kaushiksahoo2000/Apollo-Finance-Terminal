@@ -5,7 +5,7 @@ extend schema
     import: ["@source", "@connect"]
   )
   @source(
-    name: "geminiV1Beta"
+    name: "v1"
     http: {
       baseURL: "https://generativelanguage.googleapis.com/v1beta/models",
       headers: [
@@ -63,7 +63,7 @@ type AIFinancialsContent {
 type Mutation {
   genAIFinancialsContent (tickerPrompt: String!): AIFinancialsContent
     @connect(
-        source: "geminiV1Beta"
+        source: "v1"
         http: { 
           POST: "/gemini-1.5-flash-latest:generateContent?key={$config.apiKey}"
           body: """

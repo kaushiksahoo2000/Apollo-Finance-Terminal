@@ -17,7 +17,7 @@ extend schema
     }
   )
   @source(
-    name: "polygonV3"
+    name: "v3"
     http: {
       baseURL: "https://api.polygon.io/v3",
       headers: [
@@ -59,8 +59,9 @@ type AggregateBars {
 type Query {
   tickerDetails (ticker: String!): TickerDetails
     @connect(
-        source: "polygonV3"
+        source: "v3"
         http: { GET: "/reference/tickers/{$args.ticker}"}
+        entity: true
         selection: """
           $.results {
             ticker: ticker

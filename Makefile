@@ -41,13 +41,15 @@ rover-dev: print-required-env-vars ## Run rover dev to get local router running 
 rover-publish-gemini-subgraph: print-required-env-vars ## Publish gemini subgraph  
 	rover subgraph publish ${APOLLO_GRAPH_REF} \
 		--schema gemini.graphql \
-		--name gemini
+		--name gemini \
+		--routing-url http://127.0.0.1:8000/graphql
 
 .PHONY: rover-publish-polygon-subgraph
 rover-publish-polygon-subgraph: print-required-env-vars ## Publish polygon subgraph  
 	rover subgraph publish ${APOLLO_GRAPH_REF} \
 		--schema polygon.graphql \
-		--name polygon
+		--name polygon \
+		--routing-url http://127.0.0.1:8000/graphql
 
 .PHONY: rover-publish-coinbase-subgraph
 rover-publish-coinbase-subgraph: print-required-env-vars ## Publish coinbase subgraph (make sure to have local subgraph running and update routing-url)

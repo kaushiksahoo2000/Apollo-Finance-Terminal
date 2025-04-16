@@ -3,7 +3,7 @@ supergraph:
   introspection: true
 
 override_subgraph_url:
-  coinbase: "https://apollo-coinbase-subscription-server-258139619894.us-central1.run.app/graphql"
+  coinbase: "https://apollo-coinbase-subscription-server-free-tier-258139619894.us-central1.run.app/graphql"
 
 cors:
   allow_any_origin: true
@@ -27,12 +27,12 @@ headers:
           matching: .*
 include_subgraph_errors:
   all: true
-preview_connectors:
-  subgraphs:
-    polygon:
+connectors:
+  sources:
+    polygon.v3:
       $config:
         apiKey: ${env.POLYGON_API_KEY}
-    gemini:
+    gemini.v1:
       $config:
         apiKey: ${env.GEMINI_API_KEY}
 subscription:
