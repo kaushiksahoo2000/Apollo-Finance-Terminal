@@ -35,39 +35,19 @@ const afterCode = `
 
 export default function DeepDive() {
   return (
-    <div>
-      <BlurIn word="Learn how to build this" />
-
-      <FileTreeDemo className="mx-auto" />
-
-      <Separator />
-      <div className="mx-auto mt-8 flex max-w-4xl flex-col gap-12">
-        <section>
-          <h2>Snippet</h2>
-          <p>
-            Snippet is a tool that allows you to create and share snippets of
-            text.
-          </p>
-          <Button>Create Snippet</Button>
-        </section>
-
-        <CodeComparison
-          beforeCode={beforeCode}
-          afterCode={afterCode}
-          language="tsx"
-          filename="example.ts"
-          lightTheme="github-light"
-          darkTheme="github-dark"
-        />
-
-        <Code
-          code={afterCode}
-          language="tsx"
-          filename="example.ts"
-          lightTheme="github-light"
-          darkTheme="github-dark"
-        />
-      </div>
+    <div className="mx-auto mt-36 flex max-w-2xl flex-col gap-12">
+      <BlurIn
+        className=" mt-68 text-pretty md:text-5xl"
+        word="Learn how to build this"
+      />
+      <BlurIn
+        className="text-pretty text-left text-muted-foreground md:text-2xl"
+        word="We're excited to share that a detailed guide to building this app is on the way! Soon, you'll find code snippets, commands, and step-by-step instructions to help you build your very own version of an Apollo Finance Terminal. Stay tuned—more resources are coming to guide you through every step of the process!"
+      />
+      <BlurIn
+        className="text-pretty text-left md:text-xl"
+        word="- Kaushik, Ash"
+      />
     </div>
   )
 }

@@ -9,7 +9,7 @@ import {
   InMemoryCache,
 } from "@apollo/experimental-nextjs-app-support"
 
-setVerbosity("debug")
+// setVerbosity("debug")
 
 // have a function to create a client for you
 function makeClient() {

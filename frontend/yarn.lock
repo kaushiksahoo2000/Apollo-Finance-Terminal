@@ -15,6 +15,11 @@
     "@jridgewell/gen-mapping" "^0.3.5"
     "@jridgewell/trace-mapping" "^0.3.24"
 
+"@apollo/brand@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@apollo/brand/-/brand-0.7.0.tgz#06eaa107cabba6f8c5220b1262ddd121ba11e7ed"
+  integrity sha512-fSIeOPGplIxwcEetzbDOgwT7pjSbHsgmdh2errd27/mN9XL2uSVtIMmRtAxyDpsJDu94ZQL3dYtzlxOzfejEiQ==
+
 "@apollo/client-react-streaming@0.11.5":
   version "0.11.5"
   resolved "https://registry.yarnpkg.com/@apollo/client-react-streaming/-/client-react-streaming-0.11.5.tgz#fb80f96b1abc31aa86f8e4b967560dce16b8d2ee"
@@ -48,6 +53,11 @@
   integrity sha512-ifPDAQ/o+yko5UMhcH02yzR5WRkI0xocPMNMfKGjEDy7yNdrnd5o//m3B2oaiUMPOSOnqvlBO94CleeiFB5SoQ==
   dependencies:
     "@apollo/client-react-streaming" "0.11.5"
+
+"@apollo/icons@^0.6.1":
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/@apollo/icons/-/icons-0.6.1.tgz#8d6e368097773c439a253d986516dcb096319d61"
+  integrity sha512-OkuhLp6SoMNP3SxnekzRI1o8awi6FL8oKrRw5dWzPM7wNdVjlx7TmyQ7lkqQwU0e6k1wQ3Ro8U332vE7z4RayQ==
 
 "@ardatan/relay-compiler@12.0.0":
   version "12.0.0"
@@ -1746,6 +1756,24 @@
     "@radix-ui/react-primitive" "2.0.0"
     "@radix-ui/react-roving-focus" "1.1.0"
     "@radix-ui/react-use-controllable-state" "1.1.0"
+
+"@radix-ui/react-toast@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-toast/-/react-toast-1.2.2.tgz#fdd8ed0b80f47d6631dfd90278fee6debc06bf33"
+  integrity sha512-Z6pqSzmAP/bFJoqMAston4eSNa+ud44NSZTiZUmUen+IOZ5nBY8kzuU5WDBVyFXPtcW6yUalOHsxM/BP6Sv8ww==
+  dependencies:
+    "@radix-ui/primitive" "1.1.0"
+    "@radix-ui/react-collection" "1.1.0"
+    "@radix-ui/react-compose-refs" "1.1.0"
+    "@radix-ui/react-context" "1.1.1"
+    "@radix-ui/react-dismissable-layer" "1.1.1"
+    "@radix-ui/react-portal" "1.1.2"
+    "@radix-ui/react-presence" "1.1.1"
+    "@radix-ui/react-primitive" "2.0.0"
+    "@radix-ui/react-use-callback-ref" "1.1.0"
+    "@radix-ui/react-use-controllable-state" "1.1.0"
+    "@radix-ui/react-use-layout-effect" "1.1.0"
+    "@radix-ui/react-visually-hidden" "1.1.0"
 
 "@radix-ui/react-tooltip@^1.1.3":
   version "1.1.3"
@@ -4665,6 +4693,11 @@ https-proxy-agent@^7.0.0:
   dependencies:
     agent-base "^7.0.2"
     debug "4"
+
+iconoir-react@^7.9.0:
+  version "7.9.0"
+  resolved "https://registry.yarnpkg.com/iconoir-react/-/iconoir-react-7.9.0.tgz#c24c1d9597cc551a2c590bc67eb02a968124e7fa"
+  integrity sha512-6DKkVs7YKxYL3ZCqpoYDD89p/bvuDwPV8JXmrpDGRUafRH6QBMXMAMnQe4rWHLTUIB5UXVVSikvHcpJZjN5/TA==
 
 iconv-lite@^0.4.24:
   version "0.4.24"
